@@ -2,7 +2,6 @@ version: '3.2'
 services:
   elasticsearch:
     image: elasticsearch:7.17.1
-    user: root
     ports:
       - 9200:9200
       - 9300:9300
@@ -11,6 +10,7 @@ services:
       # 单节点
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms1G -Xmx1G"
+      - TAKE_FILE_OWNERSHIP=true
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./elasticsearch/data:/usr/share/elasticsearch/data
@@ -18,12 +18,9 @@ services:
       - ./elasticsearch/logs:/usr/share/elasticsearch/logs
   kibana:
     image: kibana:7.17.1
-    user: root
-    entrypoint: ['./bin/kibana', '--allow-root']
     ports:
       - 5601:5601
     container_name: kibana
-    #restart: always
     depends_on:
       - elasticsearch
     volumes:
