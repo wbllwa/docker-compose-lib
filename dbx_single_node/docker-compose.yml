@@ -14,9 +14,8 @@ services:
       - ./mysql/conf:/etc/mysql/conf.d
     restart: always
   redis:
-    image: redis: ${REDIS_VERSION}
+    image: redis:${REDIS_VERSION}
     container_name: redis
-    restart: always
     ports:
       - 6379:6379
     environment:
@@ -25,4 +24,4 @@ services:
     volumes:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
       - ./redis/data:/data
-    restart: always  
+    restart: always
