@@ -1,0 +1,16 @@
+version: "3"
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server
+    container_name: clickhouse
+    ports:
+      - 8123:8123
+    environment:
+      - CLICKHOUSE_USER=libw
+      - CLICKHOUSE_PASSWORD=123456
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./clickhouse/config:/etc/clickhouse-server
+      - ./clickhouse/log:/var/log/clickhouse-server
+      - ./clickhouse/data:/var/lib/clickhouse
+    restart: always
